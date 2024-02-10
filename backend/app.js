@@ -3,11 +3,14 @@ const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const path = require("path");
 
+require("dotenv").config();
+const apiAccess = process.env.API_ACCESS;
+
 mongoose
-  .connect(
-    "mongodb+srv://erwanmdev:BtTxPjHYJOXp39UI@cluster0.1ssrgyv.mongodb.net/?retryWrites=true&w=majority",
-    { useNewUrlParser: true, useUnifiedTopology: true }
-  )
+  .connect(apiAccess, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
   .then(() => console.log("Connexion à MongoDB réussie !"))
   .catch(() => console.log("Connexion à MongoDB échouée !"));
 
