@@ -3,6 +3,8 @@ const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const path = require("path");
 
+const userRoutes = require("./routes/user");
+
 require("dotenv").config();
 const apiAccess = process.env.API_ACCESS;
 
@@ -36,5 +38,6 @@ app.use((req, res, next) => {
 app.use(bodyParser.json());
 
 // routes here
+app.use("/api/auth", userRoutes);
 
 module.exports = app;
