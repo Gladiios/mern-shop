@@ -2,8 +2,10 @@ import "../styles/global.sass";
 import logo from "../images/shop.png"
 
 import { FaShoppingCart } from "react-icons/fa";
+import { useAuth } from "../AuthContext";
 
 const Header = () => {
+  const { isConnected, logout } = useAuth();
   return (
     <header>
       <div className="logo-link">
@@ -11,7 +13,11 @@ const Header = () => {
         <ul>
           <a href="/">Home</a>
           <a href="/about">About us</a>
-          <a href="/signup">Sign in</a>
+          {isConnected ? (
+            <a href="/" onClick={(e) => { e.preventDefault(); logout(); }}>Logout</a>
+          ) : (
+            <a href="/signup">Sign in</a>
+          )}    
         </ul>
       </div>
       <div className="cart">

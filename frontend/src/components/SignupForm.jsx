@@ -1,8 +1,10 @@
-import "../styles/global.sass"
+import { useAuth } from "../AuthContext";
 import { useState } from "react";
+import "../styles/global.sass"
 
 const SignupForm = () => {
   const [alreadyMember, setAlreadyMember] = useState(true);
+  const { login } = useAuth();
   async function handleSignUpSubmit(e) {
     e.preventDefault();
     const formData = new FormData(e.target);
@@ -35,6 +37,7 @@ async function handleSignInSubmit(e) {
   const email = formData.get('email');
   const password = formData.get('password');
   const dataToSend = { email, password };
+  
   try {
       const response = await fetch('http://localhost:3000/api/auth/login', {
           method: 'POST',
@@ -45,9 +48,9 @@ async function handleSignInSubmit(e) {
       });
       if (response.ok) {
         const responseData = await response.json();
-        window.localStorage.setItem('token', responseData.token);
-        window.location.replace("/")
         console.log('Succesfully logged');
+        login(responseData.token)
+        window.location.replace("/")
       } else {
           console.log('Email or password incorrect');
       }
