@@ -1,6 +1,9 @@
 import socket from "../images/socket.jpg"
+import { useCart } from "../CartContext";
 
-const Card = () => {
+const Card = ({product}) => {
+  const { addToCart } = useCart();
+
   return (
     <div className="card">
       <img
@@ -11,7 +14,7 @@ const Card = () => {
         <h2>Product Name</h2>
         <p>Price</p>
       </div>
-      <button>Add to cart</button>
+      <button onClick={() => addToCart(product)}>Add to cart</button>
     </div>
   );
 };

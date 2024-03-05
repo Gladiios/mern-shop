@@ -5,7 +5,9 @@ const Signup = () => {
   return (
     <div id="page">
       <Header />
-      <SignupForm />
+      <div id="main-container">
+        <SignupForm />
+      </div>
     </div>
   );
 };

@@ -49,10 +49,10 @@ async function handleSignInSubmit(e) {
       if (response.ok) {
         const responseData = await response.json();
         console.log('Succesfully logged');
-        login(responseData.token)
+        login(responseData.token, responseData.role)
         window.location.replace("/")
       } else {
-          console.log('Email or password incorrect');
+          console.log('Wrong email or password');
       }
   } catch (error) {
       console.error('Error', error);

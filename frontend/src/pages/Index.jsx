@@ -5,7 +5,9 @@ const Index = () => {
   return (
     <div id="page">
       <Header />
-      <Card />
+      <div id="main-container">
+        <Card />
+      </div>
     </div>
   );
 };
