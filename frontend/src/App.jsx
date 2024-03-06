@@ -8,7 +8,6 @@ import Cart from "./pages/Cart.jsx";
 
 function App() {
   return (
-    <AuthProvider>
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Index />} />
@@ -16,7 +15,6 @@ function App() {
           <Route path="/cart" element={<Cart />} />
         </Routes>
       </BrowserRouter>
-    </AuthProvider>
   )
 }
 

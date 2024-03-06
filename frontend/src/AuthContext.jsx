@@ -1,34 +1,39 @@
-import  { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
+import { jwtDecode } from "jwt-decode";
 
 const AuthContext = createContext();
 
 export const useAuth = () => useContext(AuthContext);
 
 export const AuthProvider = ({ children }) => {
-    const [isConnected, setIsConnected] = useState(localStorage.getItem("token") ? true : false)
-    const [isAdmin, setIsAdmin] = useState(localStorage.getItem("isAdmin") ? true : false)
+    const [isConnected, setIsConnected] = useState(false);
+    const [isAdmin, setIsAdmin] = useState(false);
 
-    useEffect(() => {
-        console.log(isAdmin ? "Admin" : "Not Admin");
-    }, [isAdmin])
-
-    const login = (token, role) => {
+    const login = (token) => {
         localStorage.setItem("token", token);
-        localStorage.setItem("isAdmin", role === "admin" ? "true" : "false");
+        const decoded = jwtDecode(token);
         setIsConnected(true);
-        setIsAdmin(role.trim().toLowerCase() === "admin");
+        setIsAdmin(decoded.role && decoded.role === "admin");
     }
 
     const logout = () => {
-        localStorage.removeItem("token")
-        localStorage.removeItem("isAdmin")
-        setIsConnected(false)
-        setIsAdmin(false)
+        localStorage.removeItem("token");
+        setIsConnected(false);
+        setIsAdmin(false);
     }
 
+    useEffect(() => {
+        const token = localStorage.getItem("token");
+        if (token) {
+            const decoded = jwtDecode(token);
+            setIsConnected(true);
+            setIsAdmin(decoded.role && decoded.role === "admin");
+        }
+    }, []);
+
     return (
-        <AuthContext.Provider value={{isConnected, login, logout}}>
+        <AuthContext.Provider value={{ isConnected, isAdmin, login, logout }}>
             {children}
         </AuthContext.Provider>
-    )
+    );
 }

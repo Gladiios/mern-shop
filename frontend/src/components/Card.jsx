@@ -1,6 +1,7 @@
 import socket from "../images/socket.jpg"
 import { useCart } from "../CartContext";
 
+
 const Card = ({product}) => {
   const { addToCart } = useCart();
 
