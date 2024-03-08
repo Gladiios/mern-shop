@@ -71,7 +71,7 @@ exports.deleteProduct = (req, res, next) => {
     });
 };
 
-exports.getOnePruduct = (req, res, next) => {
+exports.getOneProduct = (req, res, next) => {
   Product.findOne({ _id: req.params.id })
     .then((product) => {
       res.status(200).json(product);
